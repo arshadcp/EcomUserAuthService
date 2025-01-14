@@ -14,6 +14,7 @@ public class UserResponseDTO {
     private String userName;
     private String email;
     private List<RoleResponseDTO> roles;
+    private String token;
 
     public static UserResponseDTO convertUserToUserResponseDTO(User user){
         if(user==null){
@@ -23,6 +24,7 @@ public class UserResponseDTO {
         userresponseDTO.setUserName(user.getName());
         userresponseDTO.setEmail(user.getEmail());
         ArrayList<RoleResponseDTO> savedRoles=new ArrayList<>();
+        userresponseDTO.setToken(user.getToken());
         for(Role roles: user.getRoles()){
            RoleResponseDTO roleDto= RoleResponseDTO.convertRoleToRoleResponseDTO(roles);
            savedRoles.add(roleDto);
@@ -30,7 +32,7 @@ public class UserResponseDTO {
         userresponseDTO.setRoles(savedRoles);
          return userresponseDTO;
     }
-    public static User converUserResponseDTOToUser(UserResponseDTO userResponseDTO){
+    public static User convertUserRespsonseDTOToUser(UserResponseDTO userResponseDTO){
         User user=new User();
         user.setName(userResponseDTO.getUserName());
         user.setEmail(userResponseDTO.getEmail());

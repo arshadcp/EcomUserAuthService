@@ -8,16 +8,10 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
-   UserResponseDTO createUser(UserSignupRequestDTO userSignupRequestDTO);
-
-    UserResponseDTO getUserById(UUID userId);
-
-    List<UserResponseDTO> getAllUsers();
-
-
-    boolean deleteUserById(UUID userId);
-
-   UserResponseDTO updateUserById(UUID id, UserLoginRequestDTO loginRequestDTO);
+   UserResponseDTO userLogin(UserLoginRequestDTO loginRequestDTO);
+    boolean userLogout(String token);
+    UserResponseDTO signUp(UserSignupRequestDTO signupRequestDTO);
+     boolean validateToken(String token);
 
 
 }
