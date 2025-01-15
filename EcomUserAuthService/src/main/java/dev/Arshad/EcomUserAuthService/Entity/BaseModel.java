@@ -10,6 +10,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -21,7 +23,7 @@ public class BaseModel {
     private UUID id;
     private boolean isActive;
     @CreationTimestamp
-    private Instant createdAt;
+   private Date createdAt;
     @UpdateTimestamp
-    private Instant updatedAt;
+    private Date updatedAt;
 }

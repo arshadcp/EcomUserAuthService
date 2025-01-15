@@ -1,12 +1,13 @@
 package dev.Arshad.EcomUserAuthService.Controller;
 
-import dev.Arshad.EcomUserAuthService.DTO.UserLoginRequestDTO;
-import dev.Arshad.EcomUserAuthService.DTO.UserLogoutRequestDTO;
-import dev.Arshad.EcomUserAuthService.DTO.UserResponseDTO;
-import dev.Arshad.EcomUserAuthService.DTO.UserSignupRequestDTO;
+import dev.Arshad.EcomUserAuthService.DTO.*;
 import dev.Arshad.EcomUserAuthService.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -19,14 +20,23 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserResponseDTO> login(@RequestBody UserLoginRequestDTO userLoginRequestDTO){
-        return ResponseEntity.ok(userService.userLogin(userLoginRequestDTO));
+        UserResponseDTO responseDTO=userService.userLogin(userLoginRequestDTO);
+        MultiValueMap<String,String> header=new LinkedMultiValueMap<>();
+        BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+
+        String token= userService.createJWTtoken(userLoginRequestDTO);
+        header.add("Auth_Token",token);
+        ResponseEntity<UserResponseDTO> response=new ResponseEntity<>(responseDTO,header, HttpStatus.OK);
+
+        return response;
+
     }
     @GetMapping("/logout")
     public ResponseEntity<Boolean> logout(@RequestHeader ("Authorisation") String token){
         return ResponseEntity.ok(userService.userLogout(token));
     }
     @PostMapping("/signup")
-    public ResponseEntity<UserResponseDTO> login(@RequestBody UserSignupRequestDTO signupRequestDTO){
+    public ResponseEntity<Boolean> login(@RequestBody UserSignupRequestDTO signupRequestDTO){
         return ResponseEntity.ok(userService.signUp(signupRequestDTO));
     }
 
