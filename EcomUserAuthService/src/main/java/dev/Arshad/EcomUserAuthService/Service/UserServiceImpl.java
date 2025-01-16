@@ -1,13 +1,16 @@
 package dev.Arshad.EcomUserAuthService.Service;
 
 import dev.Arshad.EcomUserAuthService.DTO.*;
+import dev.Arshad.EcomUserAuthService.Entity.Enum.SessionStatus;
 import dev.Arshad.EcomUserAuthService.Entity.Role;
+import dev.Arshad.EcomUserAuthService.Entity.Session;
 import dev.Arshad.EcomUserAuthService.Entity.User;
 import dev.Arshad.EcomUserAuthService.Exception.RoleNotFoundException;
 import dev.Arshad.EcomUserAuthService.Exception.UserAlreadyExistEXception;
 import dev.Arshad.EcomUserAuthService.Exception.UserNotFoundException;
 import dev.Arshad.EcomUserAuthService.Exception.invalidCredentialException;
 import dev.Arshad.EcomUserAuthService.Repository.RoleRepository;
+import dev.Arshad.EcomUserAuthService.Repository.SessionRepository;
 import dev.Arshad.EcomUserAuthService.Repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -27,6 +30,8 @@ public class UserServiceImpl implements UserService{
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    private SessionRepository sessionRepository;
     private SecretKey key= Jwts.SIG.HS256.key().build();
 
     @Override
@@ -101,7 +106,11 @@ public class UserServiceImpl implements UserService{
                .signWith(key)
                .compact();
 //
-
+       Session session=new Session();
+       session.setToken(jws);
+       session.setUser(savedUser);
+       session.setSessionStatus(SessionStatus.ACTIVE);
+      sessionRepository.save(session);
        return jws;
    }
 }

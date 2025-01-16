@@ -9,20 +9,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    @Bean
+
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests((requests) -> requests
-//                        .requestMatchers("/", "/home","/role").permitAll()
-//                      //  .anyRequest().authenticated()
+//       http
+//               .authorizeHttpRequests((requests) -> requests
+//                       .requestMatchers("/", "/home","/role","@GetMapping").permitAll()
+//                        .anyRequest().authenticated()
 //
 //                )
-//                .formLogin((form) -> form
+//                 .formLogin((form) -> form
 //                        .loginPage("/login")
 //                        .permitAll()
 //                )
