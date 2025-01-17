@@ -100,8 +100,10 @@ public class UserServiceImpl implements UserService{
 
        dataInJWT.put("Roles",savedUser.getRoles());
        dataInJWT.put("Email",savedUser.getEmail());
+       dataInJWT.put("createdAt",new Date());
+     //  dataInJWT.put("expiry", new Date(LocalDateTime.now().plusDays(3).toEpoc()));
        String jws = Jwts.builder().claims(dataInJWT)
-               .subject("Joe")
+               .subject("This is the gateway")
                .issuer("Arshad")
                .signWith(key)
                .compact();
