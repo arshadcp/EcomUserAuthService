@@ -7,10 +7,12 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class UserResponseDTO {
+    private UUID userId;
     private String userName;
     private String email;
     private List<RoleResponseDTO> roles;
@@ -23,6 +25,7 @@ public class UserResponseDTO {
         UserResponseDTO userresponseDTO=new UserResponseDTO();
         userresponseDTO.setUserName(user.getName());
         userresponseDTO.setEmail(user.getEmail());
+        userresponseDTO.setUserId(user.getId());
         ArrayList<RoleResponseDTO> savedRoles=new ArrayList<>();
         //userresponseDTO.setToken(user.getToken());
         //String token=user.getToken();

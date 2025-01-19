@@ -15,7 +15,7 @@ public class RoleResponseDTO {
 
     public  static RoleResponseDTO convertRoleToRoleResponseDTO(Role role){
         RoleResponseDTO responseDTO=new RoleResponseDTO();
-        responseDTO.setRole(role.getRole());
+        responseDTO.setRole(role.getRolename());
         responseDTO.setDescription(role.getDescription());
         responseDTO.setRoleId(role.getId());
          return responseDTO;

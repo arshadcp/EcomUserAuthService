@@ -12,7 +12,7 @@ public class CreateRoleRequestDTO {
 
     public static Role convertCreateRoleRequestDTOToRole(CreateRoleRequestDTO createRoleRequestDTO){
         Role role=new Role();
-        role.setRole(createRoleRequestDTO.getName());
+        role.setRolename(createRoleRequestDTO.getName());
         role.setDescription(createRoleRequestDTO.getDescription());
         return role;
     }

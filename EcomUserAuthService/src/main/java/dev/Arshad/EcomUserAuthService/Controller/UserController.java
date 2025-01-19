@@ -1,6 +1,7 @@
 package dev.Arshad.EcomUserAuthService.Controller;
 
 import dev.Arshad.EcomUserAuthService.DTO.*;
+import dev.Arshad.EcomUserAuthService.Entity.Enum.SessionStatus;
 import dev.Arshad.EcomUserAuthService.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,10 +32,14 @@ public class UserController {
         return response;
 
     }
-    @GetMapping("/logout")
-    public ResponseEntity<Boolean> logout(@RequestHeader ("Authorisation") String token){
-        return ResponseEntity.ok(userService.userLogout(token));
+
+    @GetMapping("/logout/{id}")
+    public ResponseEntity<String> logout(@RequestHeader ("Authorisation") String token,@PathVariable("id") UUID userId){
+        return ResponseEntity.ok(userService.logout(token,userId));
+
+
     }
+
     @PostMapping("/signup")
     public ResponseEntity<Boolean> login(@RequestBody UserSignupRequestDTO signupRequestDTO){
         return ResponseEntity.ok(userService.signUp(signupRequestDTO));
@@ -42,11 +47,14 @@ public class UserController {
 
 
 
-    @GetMapping("/validate")
-    public  ResponseEntity<Boolean> validate(@RequestHeader ("Authorisation") String token ){
-        return ResponseEntity.ok(userService.validateToken(token));
-    }
 
+
+@PostMapping("/validate")
+  public ResponseEntity<SessionStatus> validateToken(@RequestBody ValidateTokenRequestDto request) {
+        SessionStatus sessionStatus = userService.validateToken(request.getToken(), request.getUserId());
+
+        return new ResponseEntity<>(sessionStatus, HttpStatus.OK);
+    }
 
 
 

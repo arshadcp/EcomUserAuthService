@@ -17,8 +17,7 @@ import java.util.UUID;
 @MappedSuperclass
 public class BaseModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id",columnDefinition = "CHAR(36)")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private boolean isActive;
     @CreationTimestamp

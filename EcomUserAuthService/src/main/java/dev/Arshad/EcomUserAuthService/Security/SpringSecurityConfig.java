@@ -78,14 +78,14 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
             return http.build();
         }
 
-       @Bean
+
         @Order(2)
         public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
                 throws Exception {
             http
                     .authorizeHttpRequests((authorize) -> authorize
-                           .anyRequest().authenticated()
-                            //.anyRequest().permitAll()
+                          // .anyRequest().authenticated()
+                            .anyRequest().permitAll()
                     )
                     // Form login handles the redirect to the login page from the
                     // authorization server filter chain

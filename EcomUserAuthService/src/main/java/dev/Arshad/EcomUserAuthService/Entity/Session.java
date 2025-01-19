@@ -19,3 +19,4 @@ public class Session extends BaseModel{
     @Enumerated(EnumType.STRING)
     private SessionStatus sessionStatus;
 }
+//@Column(columnDefinition = "varchar(255)")
